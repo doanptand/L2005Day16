@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.t3h.storage.room.Pokemon;
+import com.t3h.storage.room.PokemonDao;
+import com.t3h.storage.room.PokemonDatabase;
+
 import java.util.List;
 
 public class StudentActivity extends AppCompatActivity {
@@ -20,5 +24,11 @@ public class StudentActivity extends AppCompatActivity {
         List<Student> arrStudents = studentManager.getAllStudents();
         Log.d("doanpt", "size=" + arrStudents.size());
 
+        PokemonDatabase pokemonDatabase =
+                PokemonDatabase.getPokemonDatabase(getApplication());
+        PokemonDao pokemonDao = pokemonDatabase.getPokemonDao();
+        pokemonDao.insertPokemon(new Pokemon(1, "Pikachu", "This is avatar"));
+        List<Pokemon> pokemonList = pokemonDao.getAllPokemon();
+        Log.d("doanpt", "pokemon size:" + pokemonList.size());
     }
 }
